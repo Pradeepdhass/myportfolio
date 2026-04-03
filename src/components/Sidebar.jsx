@@ -61,7 +61,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <a href="https://github.com/pradeepdhass" className="social-link" target="_blank" rel="noreferrer">
             <i className="fab fa-github"></i>
           </a>
-          <a href="https://www.instagram.com/littleboy_pradeep/" className="social-link" target="_blank" rel="noreferrer">
+          <a href="https://www.instagram.com/its_pradeepdhass07/" className="social-link" target="_blank" rel="noreferrer">
             <i className="fab fa-instagram"></i>
           </a>
         </div>
