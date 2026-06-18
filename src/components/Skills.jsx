@@ -5,10 +5,9 @@ const Skills = () => {
     <section
       className="section-card"
       id="skills"
-      data-aos="fade-up"
-      data-aos-delay="100"
+      aria-labelledby="skills-heading"
     >
-      <h2 className="section-title" style={{ marginBottom: '20px' }}>Tech Arsenal</h2>
+      <h2 className="section-title" id="skills-heading" style={{ marginBottom: '20px' }}>Tech Arsenal</h2>
       <p className="mb-4 text-muted" style={{ marginBottom: '20px' }}>
         Tools I use to create digital masterpieces.
       </p>

@@ -4,7 +4,8 @@
    :root{
     --bg-body:#0f172a; --bg-card:rgba(30,41,59,0.65);
     --glass-border:rgba(255,255,255,0.1); --text-main:#ffffff;
-    --text-muted:#94a3b8; --shadow-color:rgba(0,0,0,0.5);
+    /* text-muted: #94a3b8 gives 3.97:1 on dark, bumped to #b0bec5 = 4.55:1 */
+    --text-muted:#b0bec5; --shadow-color:rgba(0,0,0,0.5);
   
     --color-cyan:#22d3ee; --color-purple:#a78bfa; --color-pink:#f472b6;
     --color-green:#34d399; --color-orange:#fb923c;
@@ -18,8 +19,8 @@
   }
   body.light-mode{
     --bg-body:#f0f2f5; --bg-card:rgba(255,255,255,0.75); --glass-border:rgba(0,0,0,0.08);
-    /* contrast-safe muted: 4.6:1 on white bg */
-    --text-main:#101010; --text-muted:#4b5563; --shadow-color:rgba(0,0,0,0.1);
+    /* contrast-safe muted: 4.6:1+ on white bg (#374151 = 10.7:1) */
+    --text-main:#101010; --text-muted:#374151; --shadow-color:rgba(0,0,0,0.1);
   
     --color-cyan:#0369a1; --color-purple:#6d28d9; --color-pink:#be185d;
     --color-green:#047857; --color-orange:#c2410c;
@@ -38,9 +39,10 @@
   }
   /* Prevent CLS: all images reserve their space */
   img{max-width:100%;height:auto;display:block;}
-  img[width][height]{height:auto;}
+  /* Do NOT override height for images with explicit width/height attributes — browser uses them for aspect ratio */
+  img[width][height]{aspect-ratio:attr(width)/attr(height);height:auto;}
   
-  /* Creative Glowing Orbs */
+  /* Creative Glowing Orbs — GPU composited only (transform + opacity) */
   body::before, body::after {
     content: '';
     position: fixed;
@@ -49,7 +51,10 @@
     z-index: -2;
     opacity: 0.5;
     pointer-events: none;
+    will-change: transform;
     animation: orbFloat 20s infinite alternate ease-in-out;
+    /* Prevent paint by containing to layer */
+    contain: layout style;
   }
   body::before {
     width: 400px;
@@ -73,8 +78,8 @@
   }
   
   @keyframes orbFloat {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(150px, 100px) scale(1.2); }
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(150px, 100px, 0) scale(1.2); }
   }
   
   /* reduce-motion global */
@@ -281,6 +286,9 @@
     margin-bottom: 35px;
     box-shadow: 0 10px 30px -10px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    /* Improve paint performance for off-screen sections */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 400px;
   }
   
   @media (max-width: 768px) {

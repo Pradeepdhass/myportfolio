@@ -9,12 +9,13 @@ const About = () => {
         <div className="col-lg-4 text-center mb-3 mb-lg-0">
           <div className="profile-card">
             <img
-              src="/assets/images/Myphoto.png"
+              src={`${import.meta.env.BASE_URL}assets/images/Myphoto.jpg`}
               alt="Pradeepdhass R — Full Stack Developer and UI/UX Enthusiast"
               width="226"
               height="274"
               loading="eager"
               fetchpriority="high"
+              decoding="sync"
             />
           </div>
         </div>

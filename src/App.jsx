@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Preloader from './components/Preloader';
 import FloatingIcons from './components/FloatingIcons';
 import Sidebar from './components/Sidebar';
 import About from './components/About';
-import Skills from './components/Skills';
-import Achievements from './components/Achievements';
-import Projects from './components/Projects';
-import Education from './components/Education';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 
-import ScrollToTop from './components/ScrollToTop';
-import InteractiveFX from './components/InteractiveFX';
+// Lazy-load below-the-fold components to improve LCP and TTI
+const Skills = lazy(() => import('./components/Skills'));
+const Achievements = lazy(() => import('./components/Achievements'));
+const Projects = lazy(() => import('./components/Projects'));
+const Education = lazy(() => import('./components/Education'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+const ScrollToTop = lazy(() => import('./components/ScrollToTop'));
+const InteractiveFX = lazy(() => import('./components/InteractiveFX'));
+
 import { ThemeProvider } from './context/ThemeContext';
 import "./styles/global.css";
+
+// Minimal skeleton for section cards while loading
+const SectionSkeleton = () => (
+  <div className="section-card" style={{ minHeight: 200, opacity: 0.4 }} aria-hidden="true" />
+);
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Initialize AOS or any global scripts here if needed
-    // The original script.js logic for scroll reveal is mostly CSS based now or can be added as a hook
-    // For now we rely on CSS and standard React behavior
-    
-    // Simple intersection observer for reveal animations if not using a library like AOS-React
+    // Simple intersection observer for reveal animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -47,20 +50,15 @@ const App = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       
-      // Calculate scroll percentage
       const scrollableHeight = documentHeight - windowHeight;
       const scrollPercentage = scrollableHeight > 0 
         ? (scrollTop / scrollableHeight) * 100 
         : 0;
       
-      // Update progress bar width
       progressBar.style.width = `${scrollPercentage}%`;
     };
 
-    // Initial update
     updateProgressBar();
-
-    // Add scroll event listener
     window.addEventListener('scroll', updateProgressBar, { passive: true });
     window.addEventListener('resize', updateProgressBar, { passive: true });
 
@@ -76,12 +74,16 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <InteractiveFX />
+      {/* Custom cursor — lazy loaded, non-critical */}
+      <Suspense fallback={null}>
+        <InteractiveFX />
+      </Suspense>
+
       {/* PRELOADER */}
       <Preloader />
 
       {/* FLOATING ICONS */}
-      <div id="progress-bar"></div>
+      <div id="progress-bar" role="progressbar" aria-label="Page scroll progress" aria-valuemin={0} aria-valuemax={100}></div>
       <FloatingIcons />
 
       <button
@@ -99,14 +101,31 @@ const App = () => {
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
         <div className="main-content">
+          {/* Above-the-fold — loaded eagerly */}
           <About />
-          <Skills />
-          <Achievements />
-          <Projects />
-          <Education />
-          <Contact />
-          <Footer />
-          <ScrollToTop />
+
+          {/* Below-the-fold — lazy loaded */}
+          <Suspense fallback={<SectionSkeleton />}>
+            <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <Achievements />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <Education />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <Contact />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <Footer />
+          </Suspense>
+          <Suspense fallback={null}>
+            <ScrollToTop />
+          </Suspense>
         </div>
       </main>
     </ThemeProvider>

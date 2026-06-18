@@ -38,7 +38,7 @@ const Footer = () => {
               <i className="fab fa-github"></i>
             </a>
             <a
-              href="https://www.instagram.com/littleboy_pradeep/"
+              href="https://www.instagram.com/its_pradeepdhass07/"
               className="social-link"
               aria-label="Instagram"
             >

@@ -13,7 +13,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <div className="avatar-box">
         {/* explicit width/height prevents CLS */}
         <img
-          src="/assets/images/my-avatar.png"
+          src={`${import.meta.env.BASE_URL}assets/images/my-avatar.png`}
           alt="Pradeepdhass R — Full Stack Developer"
           width="88"
           height="88"
@@ -69,15 +69,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <a href="https://github.com/pradeepdhass" className="social-link" target="_blank" rel="noreferrer noopener" aria-label="Visit GitHub profile (opens in new tab)">
             <i className="fab fa-github" aria-hidden="true"></i>
           </a>
-          <a href="https://www.instagram.com/littleboy_pradeep/" className="social-link" target="_blank" rel="noreferrer noopener" aria-label="Visit Instagram profile (opens in new tab)">
+          <a href="https://www.instagram.com/its_pradeepdhass07/" className="social-link" target="_blank" rel="noreferrer noopener" aria-label="Visit Instagram profile (opens in new tab)">
             <i className="fab fa-instagram" aria-hidden="true"></i>
           </a>
         </nav>
 
         <div className="mt-3 text-center">
           <a
-            href="/assets/images/My-Resume.pdf"
-            download="Pradeepdhass-R-Resume.pdf"
+            href={`${import.meta.env.BASE_URL}assets/images/My-Resume.pdf`}
+            download="PradeepdhassR_Resume.pdf"
             className="btn btn-outline-light btn-sm w-100 rounded-pill"
             aria-label="Download Pradeepdhass R resume as PDF"
             style={{
