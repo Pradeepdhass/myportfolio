@@ -1,11 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ command }) => {
+  // Base path configuration:
+  // - Netlify deployment uses '/' (NETLIFY environment variable is automatically set by Netlify)
+  // - Local development server uses '/'
+  // - GitHub Pages uses '/myportfolio/' (or custom BASE_PATH)
+  const isNetlify = process.env.NETLIFY === 'true' || process.env.BASE_PATH === '/';
+  const isDev = command === 'serve';
+  const base = (isNetlify || isDev) ? '/' : (process.env.BASE_PATH || '/myportfolio/');
 
-  // Base path for GitHub Pages deployment (https://pradeepdhass.github.io/myportfolio/)
-  base: process.env.BASE_PATH || '/myportfolio/',
+  return {
+    plugins: [react()],
+    base,
 
   build: {
     target: 'es2020',
@@ -43,4 +50,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react', 'react-dom'],
   },
+  };
 });
