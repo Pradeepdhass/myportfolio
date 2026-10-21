@@ -333,11 +333,139 @@
   .section-card:hover .section-title::after{width:100%}
   .degree-title{font-size:1rem;font-weight:700;color:#000;padding-bottom:6px;position:relative}
   
-  /* profile */
+  /* profile & intro video */
   .profile-card{width:250px;height:300px;margin:0 auto;padding:12px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(6px) saturate(150%);transition:transform .45s ease,box-shadow .45s ease;contain:layout style;will-change:transform}
   .profile-card img{width:100%;height:100%;object-fit:cover;border-radius:14px;transition:box-shadow .4s ease,transform .4s ease;aspect-ratio:5/6}
   .profile-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 22px 50px rgba(0,0,0,.45)}
   .profile-card:hover img{box-shadow:0 0 18px rgba(34,211,238,.35),0 0 25px rgba(255,45,253,.25)}
+
+  /* Intro Video Player Container */
+  .intro-video-container {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    height: 250px;
+    margin: 0 auto;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.4);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    user-select: none;
+  }
+  
+  .intro-video-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.55), 0 0 25px rgba(34,211,238,0.25);
+    border-color: rgba(34,211,238,0.4);
+  }
+
+  body.light-mode .intro-video-container {
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(240,245,255,0.7));
+    border-color: rgba(0,0,0,0.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  }
+
+  body.light-mode .intro-video-container:hover {
+    box-shadow: 0 20px 45px rgba(34,211,238,0.25);
+    border-color: rgba(34,211,238,0.5);
+  }
+
+  .intro-video-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    cursor: pointer;
+    background: #000;
+  }
+
+  /* Top Right Small Play/Pause Button */
+  .intro-corner-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 20;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1.5px solid rgba(34, 211, 238, 0.6);
+    color: var(--color-cyan, #22d3ee);
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45), 0 0 12px rgba(34, 211, 238, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.2s ease;
+  }
+
+  .intro-corner-btn:hover {
+    transform: scale(1.15);
+    background: linear-gradient(135deg, var(--color-cyan, #22d3ee), var(--color-pink, #f472b6));
+    border-color: #fff;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(34, 211, 238, 0.6);
+  }
+
+  .intro-corner-btn:active {
+    transform: scale(0.92);
+  }
+
+  .intro-corner-btn i {
+    position: relative;
+    left: 1px; /* Center alignment for play triangle */
+  }
+
+  .intro-corner-btn.playing i {
+    left: 0;
+  }
+
+  .intro-corner-btn.playing {
+    border-color: rgba(244, 114, 182, 0.7);
+    color: var(--color-pink, #f472b6);
+  }
+
+  .corner-pulse-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-cyan, #22d3ee);
+    box-shadow: 0 0 8px var(--color-cyan, #22d3ee);
+    animation: cornerGlow 1.8s infinite ease-in-out;
+  }
+
+  @keyframes cornerGlow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.5; }
+  }
+
+  @keyframes ringGlow {
+    0% { transform: scale(0.9); opacity: 0.9; }
+    100% { transform: scale(1.45); opacity: 0; }
+  }
+
+
+  @media(max-width:520px) {
+    .intro-video-container {
+      max-width: 180px;
+      height: 230px;
+      border-radius: 16px;
+    }
+  }
   
   /* category titles */
   .skill-category-title {

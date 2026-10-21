@@ -1,26 +1,17 @@
 import React from 'react';
+import IntroVideo from './IntroVideo';
 
 const About = () => {
   return (
     <section className="section-card" id="about" aria-labelledby="about-heading">
       <h2 className="section-title" id="about-heading">About Me</h2>
 
-      <div className="row align-items-center">
-        <div className="col-lg-4 text-center mb-3 mb-lg-0">
-          <div className="profile-card">
-            <img
-              src={`${import.meta.env.BASE_URL}assets/images/Myphoto.png`}
-              alt="Pradeepdhass R — Full Stack Developer and UI/UX Enthusiast"
-              width="226"
-              height="274"
-              loading="eager"
-              fetchpriority="high"
-              decoding="sync"
-            />
-          </div>
+      <div className="row align-items-center g-4">
+        <div className="col-lg-4 col-md-5 text-center mb-3 mb-md-0">
+          <IntroVideo />
         </div>
 
-        <div className="col-lg-8">
+        <div className="col-lg-8 col-md-7 ps-lg-2">
           <p style={{ color: "var(--text-main)", lineHeight: 1.8 }}>
             Hi, I'm{" "}
             <strong style={{ color: "var(--color-cyan)" }}>Pradeepdhass R</strong>

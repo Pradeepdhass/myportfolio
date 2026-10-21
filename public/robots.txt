@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pradeepdhass.github.io/myportfolio-main/sitemap.xml
+Sitemap: https://pradeepdhass.github.io/myportfolio/sitemap.xml

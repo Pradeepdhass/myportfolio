@@ -4,8 +4,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
 
-  // For Netlify root deployment
-  base: '/',
+  // Base path for GitHub Pages deployment (https://pradeepdhass.github.io/myportfolio/)
+  base: process.env.BASE_PATH || '/myportfolio/',
 
   build: {
     target: 'es2020',
